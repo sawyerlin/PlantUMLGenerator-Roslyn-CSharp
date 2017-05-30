@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PlantUMLGenerator.Core\PlantUMLGenerator.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="output\" />
+  </ItemGroup>
+
 </Project>

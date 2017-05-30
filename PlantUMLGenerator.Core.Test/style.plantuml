@@ -1,0 +1,90 @@
+﻿' http://plantuml.com/skinparam
+' todo : stereotype, state, sequence
+
+' #07338D -> Innova blue
+' #01C497 -> Innova green
+
+skinparam defaultFontColor #3F3F3F
+skinparam shadowing false
+
+skinparam classBackgroundColor {
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+
+skinparam activity {
+  ArrowColor #A80036
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+  StartColor black
+  EndColor black
+  BarColor black
+}
+
+skinparam actor {
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+
+skinparam usecase {
+  ArrowColor #A80036
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+
+skinparam class {
+  ArrowColor #A80036
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+
+skinparam object {
+  ArrowColor #A80036
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+
+skinparam package {
+  BackgroundColor white
+  BorderColor #07338D
+}
+
+skinparam component {
+  ArrowColor #01C497
+  BackgroundColor white
+  BorderColor #07338D
+  InterfaceBackgroundColor #FEFECE
+  InterfaceBorderColor #A80036
+}
+
+skinparam note {
+  BackgroundColor #F2F2FF
+  BorderColor #01C497
+'  FontColor #3F3F3F
+  FontSize 12
+  FontStyle plain
+
+}
+
+skinparam title {
+  FontColor black
+  FontSize 16
+  FontStyle plain
+  'FontName
+}
+
+skinparam header {
+  FontColor #07338D
+  FontSize 20
+  FontStyle plain
+}
+
+skinparam footer {
+  FontColor #01C497
+  FontSize 14
+  FontStyle plain
+}
+
+' ----------------------------------------------
+
+

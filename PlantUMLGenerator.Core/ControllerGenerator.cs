@@ -12,33 +12,32 @@ namespace PlantUMLGenerator.Core
     {
         private readonly TextWriter _output;
         private readonly string _rootNameSpace;
-        private string _lastRootNs;
         private string _moduleName;
-        private readonly Dictionary<string, string> _links;
         private readonly List<string> _packages;
+        private readonly string _stylePath;
+        private readonly DateTime _now;
 
-        public ControllerGenerator(TextWriter output, string rootNameSpace = "")
+        public ControllerGenerator(TextWriter output, string stylePath, string rootNameSpace = "")
         {
             _output = output;
             _rootNameSpace = rootNameSpace;
-            _links = new Dictionary<string, string>();
             _packages = new List<string>();
+            _stylePath = stylePath;
+            _now = DateTime.Now;
+        }
+
+        private void LoadStyle()
+        {
+            var styles = File.ReadAllText(_stylePath);
+            _output.Write(styles);
         }
 
         public void Generate(string[] codes)
         {
-            var rootNsArray = _rootNameSpace.Split('.');
             _output.WriteLine("@startuml");
-            _output.WriteLine("allow_mixing");
-            foreach (var rootNs in rootNsArray)
-            {
-                _output.WriteLine($"artifact {rootNs}");
-                if (!String.IsNullOrEmpty(_lastRootNs))
-                {
-                    _output.WriteLine($"{_lastRootNs}--> {rootNs}");
-                }
-                _lastRootNs = rootNs;
-            }
+            LoadStyle();
+            _output.WriteLine("scale 3508*4961");
+            _output.WriteLine("left to right direction");
             foreach (var code in codes)
             {
                 var tree = CSharpSyntaxTree.ParseText(code);
@@ -65,7 +64,7 @@ namespace PlantUMLGenerator.Core
                 {
                     _output.WriteLine("}");
                 }
-                _output.WriteLine($"{_lastRootNs} --> {_moduleName}");
+                _output.WriteLine("center header __" + _moduleName + "__\\n" + _now.Day + "/" + _now.Month + "/" + _now.Year);
                 _output.WriteLine($"package {_moduleName} {{");
                 _packages.Add(_moduleName);
             }

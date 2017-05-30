@@ -16,8 +16,8 @@ namespace PlantUMLGenerator.Core.Test
             var output = new StringBuilder();
             using (var writer = new StringWriter(output))
             {
-                var gen = new ControllerGenerator(writer);
-                gen.Generate(new [] {input});
+                var gen = new ControllerGenerator(writer, "..\\..\\..\\style.plantuml");
+                gen.Generate(new[] { input });
                 Console.Write(output);
             }
         }
@@ -30,19 +30,25 @@ namespace PlantUMLGenerator.Core.Test
 
             var directories = Directory.GetDirectories(rootFolder);
 
-            var output = new StringBuilder();
-            using (var writer = new StringWriter(output))
+            foreach (var directory in directories)
             {
-                var gen = new ControllerGenerator(writer, rootNameSpace);
-                var query = from directory in directories
-                    from file in Directory.GetFiles(directory)
-                    select File.ReadAllText(file);
-                gen.Generate(query.ToArray());
-                string outputPath = "C:\\Dev\\PlantUmlGenerator\\test.plantuml";
-
-                using (var stream = new StreamWriter(File.Create(outputPath)))
+                var output = new StringBuilder();
+                using (var writer = new StringWriter(output))
                 {
-                   stream.Write(output); 
+                    var gen = new ControllerGenerator(writer, "..\\..\\..\\style.plantuml", rootNameSpace);
+                    var directoryName = directory.Substring(rootFolder.Length + 1);
+                    string outputPath = "..\\..\\..\\output\\" + directoryName + ".plantuml";
+
+                    var query = from file in Directory.GetFiles(directory)
+                    select File.ReadAllText(file);
+
+                    gen.Generate(query.ToArray());
+
+                    using (var stream = new StreamWriter(File.Create(outputPath)))
+                    {
+                        stream.Write(output);
+                    }
+
                 }
             }
         }
